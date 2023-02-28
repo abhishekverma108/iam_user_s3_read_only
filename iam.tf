@@ -9,11 +9,11 @@ resource "aws_s3_bucket" "bucket" {
   bucket = "bucket-feb-26"
   acl    = "private"
 }
-resource "aws_iam_access_key" "lb" {
+resource "aws_iam_access_key" "user_key" {
   user    = aws_iam_user.s3user.name
   
 }
-resource "aws_iam_user_policy" "lb_ro" {
+resource "aws_iam_user_policy" "user_policy" {
 
   name = "test"
   user = aws_iam_user.s3user.name
@@ -36,10 +36,6 @@ resource "aws_iam_user_policy" "lb_ro" {
 }
 resource "aws_iam_user_login_profile" "example" {
   user    = aws_iam_user.s3user.name
-#   pgp_key = "keybase:some_person_that_exists"
-    password_reset_required     = false
+
 }
 
-output "password" {
-  value = aws_iam_user_login_profile.example.encrypted_password
-}
